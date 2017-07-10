@@ -89,4 +89,28 @@ describe('Blog', ()=>{
 		})
 	})
 
+     describe("DELETE Blog ",()=>{
+          it('Should Delete Data Blog by id',(done)=>{
+               var insertBlog = new Artikel({
+                    title : 'Title',
+                    description : 'Description',
+                    author : 'Author'
+                    })
+               insertBlog.save((err, result)=>{
+                    chai.request(server)
+                    .delete('/api/artikels/'+ result._id)
+                    .end((err,res)=>{
+                         should.exist(res.body);
+                         res.body.should.be.a('object');
+                         res.body.msg.should.be.a('string');
+                         res.body.msg.should.equal('Delete Data');
+                         res.body.docs.should.be.a('object')
+                         res.body.docs.ok.should.equal(1)
+                         res.body.docs.n.should.equal(1)
+                         done()
+                    })
+               })
+          })
+     })
+
 })

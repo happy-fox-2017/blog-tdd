@@ -43,8 +43,22 @@ var updateArtikel = (req, res,next)=>{
   })
 }
 
+var deleteArtikel = function(req,res,next) {
+  Artikel.remove({_id:req.params.id}, function(err,docs){
+    if(!err){
+      res.send({
+        msg : "Delete Data",
+        docs : docs
+      })
+    }else{
+      res.send(err)
+    }
+  })
+}
+
 module.exports = {
      createArtikel,
      getAllArtikel,
-     updateArtikel
+     updateArtikel,
+     deleteArtikel
 }
