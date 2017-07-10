@@ -43,9 +43,50 @@ describe('Blog', ()=>{
                     res.body.description.should.be.equal('Description')
                     res.body.should.have.property('title')
                     res.body.should.have.property('description')
+                    res.body.should.have.property('author')
+
                     done()
                })
           })
      })
+
+     describe("GET Artikel ",()=>{
+          it('Should get all data  Artikel ',(done)=>{
+               chai.request(server)
+               .get('/api/artikels')
+               .end((err, res)=>{
+                    res.should.have.status(200)
+                    res.body.should.be.a('array')
+                    res.body.length.should.equal(1)
+                    res.body[0].description.should.equal('description')
+                    done()
+               })
+          })
+     })
+
+
+     describe("Update Blog ",()=>{
+		it('Should Update Data Blog by id',(done)=>{
+			var insertBlog = new Artikel({
+     	    	title : 'Title',
+     	    	description : 'Description',
+     	    	author : 'Author'
+			})
+			insertBlog.save((err, result)=>{
+				chai.request(server)
+				.put('/api/artikels/'+ result._id)
+				.send({
+     		    	title : 'Title New',
+     		    	description : 'Description New',
+     		    	author : 'Author'
+     				})
+				.end((err,res)=>{
+                         res.should.have.status(200)
+					res.body.should.be.a('object')
+					done()
+				})
+			})
+		})
+	})
 
 })

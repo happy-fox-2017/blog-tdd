@@ -15,6 +15,36 @@ var createArtikel = (req,res,next)=>{
      })
 }
 
+var getAllArtikel = (req,res,next)=>{
+     Artikel.find({}, function(err, result){
+          if(result) {
+               res.send(result)
+          } else {
+               res.send(err.message)
+          }
+     })
+}
+
+var updateArtikel = (req, res,next)=>{
+  Artikel.findById(req.params.id, (err, docs) => {
+   if (err) res.send(err)
+   Artikel.updateOne({
+      _id: docs._id
+   }, {
+      $set: {
+           title : req.body.title || docs.title,
+           description : req.body.description || docs.description,
+           author: req.body.author || docs.author
+      }
+   }, (err, result) => {
+      if (err) res.send(err)
+      res.send(result)
+   })
+  })
+}
+
 module.exports = {
-     createArtikel
+     createArtikel,
+     getAllArtikel,
+     updateArtikel
 }
