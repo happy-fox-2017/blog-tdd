@@ -11,5 +11,7 @@ router.post('/', articleCtrl.create);
 
 router.delete('/:id', articleCtrl.remove)
 
+router.put('/:id', articleCtrl.edit)
+
 
 module.exports = router;

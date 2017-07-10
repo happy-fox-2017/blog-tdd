@@ -28,11 +28,20 @@ var remove = function (req, res) {
   })
 }
 
+var edit = function (req, res) {
+  Article.findByIdAndUpdate(req.params.id, { $set: req.body }, { runValidators: true }, (err, article) => {
+    if(err) res.send(err.errors)
+    Article.findById(article._id, (err, article) => {
+      res.send(article)
+    })
+  })
+}
 
 
 module.exports = {
   create,
   getAll,
   remove,
-  getOne
+  getOne,
+  edit
 }
