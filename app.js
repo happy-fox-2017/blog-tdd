@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/blog-tdd');
 var index = require('./routes/index');
 var artikel = require('./routes/artikel');
 var user = require('./routes/user');
-var login = require('./routes/login')
+var login = require('./routes/login');
 
 var app = express();
 

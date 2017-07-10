@@ -13,7 +13,6 @@ let user_post = (req,res) => {
         name : data.name,
         email : data.email
       })
-      console.log(newUser);
       
       newUser.save(function(err,user){
         if (err) {
