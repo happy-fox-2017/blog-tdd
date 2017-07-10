@@ -18,5 +18,24 @@ let artikelPost = function(req,res){
   })
 }
 
+let artikelDelete = function(req,res) {
+  let id = req.params.id;
+  Artikel.findById(id, function(err, artikel){
+    if(err){
+      res.status(502).send(`Something Wrong with your Mongodb : ${err}`);
+    } else {
+      artikel.remove(function(err) {
+        if(err){
+          res.status(501).send(`Something Wrong with your Mongodb : ${err}`);
+        } else{
+          res.status(200).send(`1 Document Deleted`)
+        }
+      })
+    }
+  })
+}
+
 module.exports = {
-artikelPost};
+artikelPost,
+artikelDelete
+};
