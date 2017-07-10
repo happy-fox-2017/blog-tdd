@@ -1,7 +1,8 @@
 var chai = require('chai'),
     chaiHttp = require('chai-http'),
     app = require('../app.js'),
-    expect = chai.expect;
+    expect = chai.expect,
+    id= "";
 
 chai.use(chaiHttp);
 
@@ -20,6 +21,7 @@ chai.use(chaiHttp);
           expect(res.body).to.be.a('object');
           expect(res.body).to.have.property('title');
           expect(res.body).to.have.property('content');
+          id = res.body._id
           done()
         })
     });
@@ -31,8 +33,21 @@ chai.use(chaiHttp);
       .get('/article')
       .end((err,res)=>{
         expect(res.body).to.be.an('array')
-        expect(res.body[0]).to.have.a.property('title');
-        expect(res.body[1]).to.have.a.property('content');
+        expect(res.body[0]).to.have.property('title');
+        expect(res.body[1]).to.have.property('content');
+        done()
+      })
+    })
+  })
+  
+  describe('DeleteData',()=>{
+    it('should DeleteData article',(done)=>{
+      chai.request(app)
+      .delete('/article/' + id)
+      .end((err,res)=>{
+        expect(err).to.be.null;
+        expect(res.body).to.not.have.property('title');
+        expect(res.body).to.not.have.property('content');
         done()
       })
     })

@@ -25,7 +25,17 @@ var getAllArticle = (req,res)=>{
   })
 }
 
+var deleteArticle= (req,res)=>{
+  Article.findByIdAndRemove(req.params.id,(err)=>{
+    if (err) {
+      res.send(err.message)
+    }
+    res.send('data already delete')
+  })
+}
+
 module.exports = {
   createArticle,
-  getAllArticle
+  getAllArticle,
+  deleteArticle
 }
