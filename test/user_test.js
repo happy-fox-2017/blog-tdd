@@ -48,6 +48,32 @@ describe('User', function(){
           })
      })
 
+
+     describe('POST SIGN USER', function(){
+          it('should login a user and develop a token ', function(done){
+               chai.request(server)
+               .post('/api/users/sigin')
+               .send({
+                    name : "User",
+                    email : 'user@email.com',
+                    phone : "phone",
+                    password : "password"
+               })
+               .end((err,res)=>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.msg.should.be.a('string')
+                    res.body.result.should.be.a('object')
+                    res.body.result.should.have.property('name')
+                    res.body.result.should.have.property('phone')
+                    res.body.result.should.have.property('email')
+                    done()
+               })
+          })
+     })
+
+
+
      describe('POST INSERT USER', function(){
           it('should Insert Data users', function(done){
                chai.request(server)
@@ -78,7 +104,11 @@ describe('User', function(){
                .get('/api/users')
                .end((err,res)=>{
                     res.should.have.status(200)
-                    res.body.should.be.a('array')
+                    res.body.should.be.a('object')
+                    res.body.msg.should.be.a('string')
+                    res.body.result.should.be.a('Array')
+                    res.body.msg.should.have.be.equal('Successfull get All User')
+
                     done()
                })
           })
@@ -104,6 +134,9 @@ describe('User', function(){
                     .end(function(err,res){
                          res.should.have.status(200);
                          res.body.should.be.a('object')
+                         res.body.msg.should.be.a('string')
+                         res.body.msg.should.have.be.equal('Update Successfull')
+                         res.body.result.should.be.a('object')
                          done()
                     })
                })
@@ -123,6 +156,9 @@ describe('User', function(){
 				.end(function(err,res){
                          res.should.have.status(200);
 					res.body.should.be.a('object');
+                         res.body.msg.should.be.a('string')
+                         res.body.msg.should.have.be.equal('Delete User Successfull')
+                         res.body.result.should.be.a('object')
 					done()
 				})
 			})

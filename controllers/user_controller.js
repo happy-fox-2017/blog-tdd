@@ -33,10 +33,45 @@ var signup = (req, res)=>{
   })
 }
 
+var signin = (req, res)=>{
+  User.findOne({
+    email : req.body.email
+  })
+  .then(result=>{
+    if(!result){
+      res.send({
+        msg : "Email not Registered"
+      })
+    }else{
+      if(bcrypt.compareSync(req.body.password, result.password)){
+        var token = jwt.sign({
+          id : result._id,
+          name : result.name,
+          email : result.email,
+          phone: result.phone || null
+        }, 'secret')
+        res.send({
+          token : token
+        })
+      }else{
+        res.send({
+          msg : "Password is wrong"
+        })
+      }
+    }
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+}
+
 var findAllUsers = (req,res,next)=>{
      User.find(function(err, result){
           if(result) {
-               res.send(result)
+               res.send({
+                    result : result,
+                    msg : 'Successfull get All User'
+               })
           } else {
                res.send(err.message)
           }
@@ -48,7 +83,9 @@ var findOneUser = (req,res,next)=>{
           if (err) {
                res.send(err.message)
           } else {
-               res.send(result)
+               res.send({
+                    result : result
+               })
           }
      })
 }
@@ -73,11 +110,14 @@ var insertUser = (req,res,next)=>{
 }
 
 var deleteUser = (req,res,next) =>{
-     User.remove({_id:req.params.id}, (err,docs)=>{
+     User.remove({_id:req.params.id}, (err,result)=>{
           if (err) {
                console.log(err.message);
           } else {
-               res.send(docs)
+               res.send({
+                    result : result ,
+                    msg : "Delete User Successfull"
+               })
           }
      })
 }
@@ -97,7 +137,10 @@ var updateUser = (req, res,next)=>{
       }
    }, (err, result) => {
       if (err) res.send(err)
-      res.send(result)
+      res.send({
+           result : result,
+           msg : "Update Successfull"
+      })
    })
   })
 }
@@ -107,6 +150,7 @@ var updateUser = (req, res,next)=>{
 
 module.exports = {
      signup,
+     signin,
      findAllUsers,
      findOneUser,
      insertUser,
