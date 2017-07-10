@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 describe('Test Untuk Memastikan artikel yang di simpan berhasil', function () {
   let id = ""
-  it('Penambahan dengan data yang sama', function (done) {
+  it('Penambahan dengan data Artikel yang sama', function (done) {
       chai.request(app)
         .post('/api/artikel')
       .send({
@@ -58,7 +58,7 @@ describe('Test Untuk Memastikan artikel yang di simpan berhasil', function () {
     .delete(`/api/artikel/${id}`)
     .end(function(err,res) {
       res.should.have.status(200);
-      res.text.should.equal("1 Document Deleted");
+      res.text.should.equal("1 Document Artikel Deleted");
       done();
     })
   })

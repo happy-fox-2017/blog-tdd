@@ -28,7 +28,7 @@ let artikelDelete = function(req,res) {
         if(err){
           res.status(501).send(`Something Wrong with your Mongodb : ${err}`);
         } else{
-          res.status(200).send(`1 Document Deleted`)
+          res.status(200).send(`1 Document Artikel Deleted`)
         }
       })
     }
