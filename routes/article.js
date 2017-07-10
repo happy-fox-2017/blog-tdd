@@ -8,6 +8,7 @@ var controller = require('../controllers/articleController')
 router.post('/',controller.createArticle);
 router.get('/',controller.getAllArticle);
 router.delete('/:id',controller.deleteArticle);
+router.put('/:id',controller.updateArticle);
 
 
 

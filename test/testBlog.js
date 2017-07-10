@@ -40,6 +40,26 @@ chai.use(chaiHttp);
     })
   })
   
+  describe('updateData', ()=>{
+    it('should updateData article',(done)=>{
+      console.log(id);
+      chai.request(app)
+      .put('/article/' + id)
+      .send({
+        title:'update title',
+        content: 'update content'
+      })
+      .end((err,res)=>{
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.have.property('title');
+        expect(res.body).to.have.property('content');
+        done()
+      })
+    })
+  })
+  
   describe('DeleteData',()=>{
     it('should DeleteData article',(done)=>{
       chai.request(app)
@@ -52,4 +72,6 @@ chai.use(chaiHttp);
       })
     })
   })
+  
+  
 

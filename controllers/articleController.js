@@ -34,8 +34,28 @@ var deleteArticle= (req,res)=>{
   })
 }
 
+var updateArticle =(req,res)=>{
+  Article.findById(req.params.id,(err,data)=>{
+    if (err) {
+      res.send(err.message)
+    }
+    console.log('dt ' + data);
+    data.title = req.body.title || data.title;  
+    data.content = req.body.content || data.content;
+    
+    data.save((err,data)=>{
+      if (err) {
+        res.send(err)
+      }
+      res.send(data)
+      console.log('data already update');
+    })
+  })
+}
+
 module.exports = {
   createArticle,
   getAllArticle,
-  deleteArticle
+  deleteArticle,
+  updateArticle
 }
