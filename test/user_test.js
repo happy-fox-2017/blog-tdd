@@ -47,6 +47,8 @@ describe('sign in', function() {
       res.body.should.be.a("object")
       console.log(res.text);
       token = res.text
+      res.text.should.exist
+
       // token = res
       done()
     })
