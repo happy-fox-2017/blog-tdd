@@ -35,7 +35,40 @@ let artikelDelete = function(req,res) {
   })
 }
 
+let artikelGet = function(req,res){
+  Artikel.find({}, function(err, artikel){
+    if(err){
+      res.status(502).send(`Something Wrong with your Mongodb : ${err}`);
+    } else {
+      res.status(200).send(artikel);
+    }
+  })
+}
+
+let artikelPut = function(req,res){
+  Artikel.findById(req.params.id, (err,artikel) =>{
+    if(err){
+      res.status(504).send(`Something Wrong with your Mongodb : ${err}`);
+    } else {
+      let data = req.body;
+      artikel.judul = data.judul;
+      artikel.pesan = data.pesan;
+      artikel.autor = data.autor;
+      
+      artikel.save(function(err,newartikel){
+        if (err) {
+          res.status(506).send(`Something Wrong with your Mongodb : ${err}`);
+        } else {
+          res.status(200).send(newartikel);
+        }
+      })
+    }
+  })
+}
+
 module.exports = {
 artikelPost,
-artikelDelete
+artikelDelete,
+artikelGet,
+artikelPut
 };
