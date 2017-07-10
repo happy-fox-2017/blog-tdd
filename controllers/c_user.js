@@ -26,9 +26,13 @@ var signUp = function(req, res) {
 var signIn = function(req, res) {
   let username = req.body.username
   let password = req.body.password
-  user_model.find({username: username, password: password}, function(err, result) {
+  user_model.findOne({username: username}, function(err, result) {
+    console.log('ini resuult: ',result);
     if (bcrypt.compare(req.body.password, result.password)) {
       var token = jwt.sign({username: result.username, name: result.name}, process.env.SECRET)
+      jwt.verify(token, process.env.SECRET, function(err, decoded) {
+        console.log('tes', decoded);
+      })
       res.send(token)
     } else {
       res.send('Silahkan Login terlebih dahhulu')
