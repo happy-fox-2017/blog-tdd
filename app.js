@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/blog-tdd');
 
 var index = require('./routes/index');
+var artikel = require('./routes/artikel');
 
 var app = express();
 
@@ -29,6 +30,7 @@ db.once('open', function(){
 })
 
 app.use('/', index);
+app.use('/api/artikel', artikel);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
