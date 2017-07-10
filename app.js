@@ -13,11 +13,15 @@ mongoose.connect(db_config[app_env], function(){
 });
 
 const artikels = require('./routes/artikels')
+const users = require('./routes/users')
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : false}))
 
 app.use('/api/artikels', artikels)
+app.use('/api/users', users)
+
 app.listen(3000, ()=>{
      console.log('Alive');
 })

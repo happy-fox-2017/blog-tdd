@@ -7,7 +7,7 @@ var server = require('../app')
 var Artikel = require('../models/artikel_models')
 
 
-describe('Blog', ()=>{
+describe('Artikel', ()=>{
 
      beforeEach((done)=>{
           var createArtikel = new Artikel ({
