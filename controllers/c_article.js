@@ -28,11 +28,14 @@ var remove = function(req, res) {
 
 var edit = function(req, res, next) {
   let id = req.params._id
-  let query_update = {title: req.body.title, body: req.body.body, createdby: req.body.createdby}
+  article_model.findById(id, function(err, resultFind) {
+    resultFind.title = req.body.title || resultFind.title
+    resultFind.body = req.body.body || resultFind.body
+    resultFind.createdby = req.body.createdby || resultFind.createdby
 
-  article_model.findOneAndUpdate({_id:id}, {$set : {title: req.body.title, body: req.body.body, createdby: req.body.createdby}}, function(err, result) {
-    if(!err) res.send(result)
-    else res.send(err.message)
+    resultFind.save(function(err, resultFind) {
+      err ? res.send(err) : res.status(200).send(resultFind)
+    })
   })
 }
 

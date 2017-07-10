@@ -10,6 +10,7 @@ require('dotenv').config()
 
 var signUp = function(req, res) {
   var hash = bcrypt.hashSync(req.body.password, salt)
+  console.log('ini hash: ',hash);
   var user = new user_model({
     name: req.body.name,
     username: req.body.username,
