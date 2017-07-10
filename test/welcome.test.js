@@ -142,70 +142,39 @@ describe('DELETE /articles/:id', function () {
   })
 })
 
-// describe('PUT /articles/:id', function () {
-//   let id
-//   beforeEach(function (done) {
-//     let article = new Article({
-//       title: 'judul asal',
-//       description: 'deskripsi asal'
-//     })
-//     article.save((err, article) => {
-//       id = article._id
-//     })
-//     done()
-//   })
-//
-//   afterEach(function (done) {
-//     Article.findByIdAndRemove(id, (err) => {
-//       console.log(err);
-//     })
-//     done()
-//   })
-//
-//   it(`should have title "edited judul"`, function (done) {
-//     chai.request(app)
-//     .put(`/articles/${id}`)
-//     .send({
-//       title: 'edited judul'
-//     })
-//     .end((err, res) => {
-//       res.should.have.status(200)
-//       res.body.should.have.property('title', 'edited judul')
-//       done()
-//     })
-//   })
-//
-// })
-
-describe('PUT /api/articles/:id', () => {
+describe('PUT /articles/:id', () => {
     var target;
-    beforeEach(done => {
-      var newArticle = new Article({
-        title: "Test article",
-        description: "Lorem ipsum dolop dolop",
+    beforeEach(function (done) {
+      let article = new Article({
+        title: 'judul asal',
+        description: 'deskripsi asal'
       })
-      newArticle.save((err, saved) => {
+      article.save((err, article) => {
         if(err) {
-          console.log(err)
+          console.log(err);
         } else {
-          target = saved._id;
-          done()
+          target = article._id
         }
+        done()
       })
     })
-    it('should edit new article', function(done) {
+
+    afterEach(function (done) {
+      Article.findByIdAndRemove(target, (err) => {
+        console.log(err);
+      })
+      done()
+    })
+
+    it(`should have title "edited judul"`, function (done) {
       chai.request(app)
       .put(`/articles/${target}`)
       .send({
-        title: "Test article edited",
-        description: "Lorem ipsum dolop dolopss"
+        title: 'edited judul'
       })
-      .end(function(err, res) {
+      .end((err, res) => {
         res.should.have.status(200)
-        // res.body.should.be.a('object')
-        // res.body.should.have.property('author', "Budi Sudarsonois")
-        // res.body.should.have.property('title', "Test article edited")
-        // res.body.should.have.property('article_content', "Lorem ipsum dolop dolopss")
+        res.body.should.have.property('title', 'edited judul')
         done()
       })
     })
