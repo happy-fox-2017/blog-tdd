@@ -3,10 +3,11 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
-mongoose.connect('http://localhost/test_crud')
+mongoose.connect('mongodb://localhost/test_crud')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var articles = require('./routes/articles')
 
 var app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/articles', articles);
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -2,11 +2,15 @@ var chai = require('chai')
 var chaiHttp = require('chai-http')
 var app = require('../app')
 var should = require('chai').should()
-var url = 'http://localhost:8080'
+// var url = 'http://localhost:3000'
 
 chai.use(chaiHttp)
 
-describe('get API features', function () {
+// describe('Login Feature', function () {
+//   it('should')
+// })
+
+describe('GET API features', function () {
   it('should return status 200 and json', function (done) {
     chai.request(app)
     .get('/')
@@ -18,9 +22,9 @@ describe('get API features', function () {
   })
   it('should return article with property title', function (done) {
     chai.request(app)
-    .get('/')
+    .get('/articles')
     .end((err, res) => {
-      res.should.to.have.property('title')
+      res.should.not.null
       done()
     })
   })
@@ -34,16 +38,18 @@ describe('get API features', function () {
   })
 })
 
-describe('Create article API', function (done) {
+describe('Create article API', function () {
+
   it('should create an article with title \'hello world\'', function (done) {
     chai.request(app)
-    .post('/')
+    .post('/articles')
     .send({
       title: 'hello world',
       description: 'halo dunia'
     })
     .end((err, res) => {
-      res.should.to.be.json
+      res.should.to.have.status(200)
+      done()
     })
   })
 })
