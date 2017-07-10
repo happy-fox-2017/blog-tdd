@@ -15,6 +15,17 @@ var createArticle = (req,res)=>{
   })
 }
 
+var getAllArticle = (req,res)=>{
+  Article.find({},(err,result)=>{
+    if (err) {
+      res.send(err.message)
+    }
+    console.log(result);
+    res.send(result);
+  })
+}
+
 module.exports = {
-  createArticle
+  createArticle,
+  getAllArticle
 }

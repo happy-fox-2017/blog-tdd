@@ -24,4 +24,17 @@ chai.use(chaiHttp);
         })
     });
   });
+  
+  describe('getAllData',function(){
+    it('should get all data post', function(done){
+      chai.request(app)
+      .get('/article')
+      .end((err,res)=>{
+        expect(res.body).to.be.an('array')
+        expect(res.body[0]).to.have.a.property('title');
+        expect(res.body[1]).to.have.a.property('content');
+        done()
+      })
+    })
+  })
 

@@ -6,6 +6,7 @@ var controller = require('../controllers/articleController')
 /* Get main endpoint*/
 
 router.post('/',controller.createArticle);
+router.get('/',controller.getAllArticle);
 
 
 
