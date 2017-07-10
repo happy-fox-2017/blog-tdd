@@ -16,7 +16,23 @@ var getAll = function (req, res) {
   })
 }
 
+var getOne = function (req, res) {
+  Article.findById(req.params.id, (err, article) => {
+    err ? res.status(500).send(err) : res.json(article)
+  })
+}
+
+var remove = function (req, res) {
+  Article.findByIdAndRemove(req.params.id, (err, article) => {
+    err ? res.status(500).send(err) : res.json(article)
+  })
+}
+
+
+
 module.exports = {
   create,
-  getAll
+  getAll,
+  remove,
+  getOne
 }
