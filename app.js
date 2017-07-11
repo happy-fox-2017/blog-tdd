@@ -1,6 +1,8 @@
 'use strict'
 //All Dependencies
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise
+
 mongoose.connect('mongodb://localhost/blog-tdd');
 
 
@@ -14,6 +16,7 @@ const express = require('express'),
       routes = require('./routes/index'),
       users = require('./routes/users'),
       article = require('./routes/article'),
+      author = require('./routes/author'),
 
       //Express Instance
       app = express();
@@ -28,7 +31,8 @@ app.use(cookieParser());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/article', article);
+app.use('/blog/article', article);
+app.use('/blog/author', author);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

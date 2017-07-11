@@ -10,7 +10,7 @@ var createArticle = (req,res)=>{
     if (err) {
       res.send(err.message)
     }
-    console.log(result);
+    // console.log(result);
     res.send(result)
   })
 }
@@ -20,17 +20,8 @@ var getAllArticle = (req,res)=>{
     if (err) {
       res.send(err.message)
     }
-    console.log(result);
+    // console.log(result);
     res.send(result);
-  })
-}
-
-var deleteArticle= (req,res)=>{
-  Article.findByIdAndRemove(req.params.id,(err)=>{
-    if (err) {
-      res.send(err.message)
-    }
-    res.send('data already delete')
   })
 }
 
@@ -38,8 +29,7 @@ var updateArticle =(req,res)=>{
   Article.findById(req.params.id,(err,data)=>{
     if (err) {
       res.send(err.message)
-    }
-    console.log('dt ' + data);
+    }    
     data.title = req.body.title || data.title;  
     data.content = req.body.content || data.content;
     
@@ -50,6 +40,15 @@ var updateArticle =(req,res)=>{
       res.send(data)
       console.log('data already update');
     })
+  })
+}
+
+var deleteArticle= (req,res)=>{
+  Article.findByIdAndRemove(req.params.id,(err)=>{
+    if (err) {
+      res.send(err.message)
+    }
+    res.send('data already delete')
   })
 }
 
