@@ -13,9 +13,10 @@ let findAllArticle = (req, res) => {
 
 let createArticle = (req, res) => {
   Article.create({
-    resource: req.body.resource,
+    summary: req.body.summary,
     title: req.body.title,
     author: req.body.author,
+    release_date: req.body.release_date,
     content: req.body.content
   }, (err, data) => {
     if (err) {
@@ -38,7 +39,8 @@ let updateArticle = (req, res) => {
           title : body.title || data.title,
           content : body.content || data.content,
           author : body.author || data.author,
-          resource : body.resource || data.resource
+          release_date : body.release_date || data.release_date,
+          summary : body.summary || data.summary
         }
       }, (err, data) => {
         if (err) {

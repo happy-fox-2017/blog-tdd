@@ -11,9 +11,8 @@ var users = require('./routes/users');
 var articles = require('./routes/article');
 
 require('dotenv').config()
-console.log(process.env.TEST);
 
-mongoose.connect('mongodb://localhost/blogTDD_'+process.env.TEST)
+mongoose.connect('mongodb://localhost/blogTDD_'+process.env.DEV)
 
 var app = express();
 
