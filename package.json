@@ -1,0 +1,28 @@
+{
+  "name": "blog-tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewSenewe/blog-tdd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrewSenewe/blog-tdd/issues"
+  },
+  "homepage": "https://github.com/AndrewSenewe/blog-tdd#readme",
+  "dependencies": {
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "mongoose": "^4.8.2"
+  }
+}
