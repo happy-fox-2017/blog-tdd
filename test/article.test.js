@@ -7,10 +7,6 @@ var Article = require('../models/article')
 
 chai.use(chaiHttp)
 
-// describe('Login Feature', function () {
-//   it('should')
-// })
-
 describe('GET /articles', function () {
   it('should return status 200 and json', function (done) {
     chai.request(app)
